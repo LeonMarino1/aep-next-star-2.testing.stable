@@ -2,6 +2,7 @@ package com.aep.testing.aepnextstar2.testing.stable;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest (webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("logging-test")
 @RunWith(SpringRunner.class)
-public class ApplicationTests {
+class ApplicationTests {
 
 	/*
 	 * @Test void contextLoads() { }
@@ -53,7 +54,7 @@ public class ApplicationTests {
 	
 	
     @Test
-    public void testWithdraw() throws Exception {
+    void testWithdraw() throws Exception {
     	
     	
     	List<BankAccount> accounts = service.getAll();
@@ -78,8 +79,8 @@ public class ApplicationTests {
     		
     		responseAccount = mapper.readValue(responseBody, BankAccount.class);
     		
-    		assertTrue(actual-withdrawAmount == account.getBalance());
-    		assertTrue(actual-withdrawAmount == responseAccount.getBalance());
+    		assertEquals(actual-withdrawAmount, account.getBalance());
+    		assertEquals(actual-withdrawAmount, responseAccount.getBalance());
     	}
     	
     	
@@ -87,7 +88,7 @@ public class ApplicationTests {
     }
     
     @Test
-    public void testDeposit() throws Exception {
+    void testDeposit() throws Exception {
     	
     	
     	List<BankAccount> accounts = service.getAll();
@@ -112,8 +113,8 @@ public class ApplicationTests {
     		
     		responseAccount = mapper.readValue(responseBody, BankAccount.class);
     		
-    		assertTrue(actual+depositAmount == account.getBalance());
-    		assertTrue(actual+depositAmount == responseAccount.getBalance());
+    		assertEquals(actual+depositAmount,account.getBalance());
+    		assertEquals(actual+depositAmount, responseAccount.getBalance());
     	}
     	
     	
@@ -131,7 +132,7 @@ public class ApplicationTests {
     
     
 	@Test
-    public void testCreateAccounts() throws Exception {
+    void testCreateAccounts() throws Exception {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
