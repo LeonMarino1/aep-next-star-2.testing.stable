@@ -44,7 +44,7 @@ public class BankAccountTest {
 		
 		account.setId(10);
 		
-		assertEquals(10, account.getBalance());
+		assertEquals(10, account.getId());
 	}
 
 }

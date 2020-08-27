@@ -1,6 +1,7 @@
 package com.aep.testing.aepnextstar2.testing.stable.unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -12,6 +13,9 @@ import org.junit.Test;
 
 import com.aep.testing.aepnextstar2.testing.stable.model.BankAccount;
 import com.aep.testing.aepnextstar2.testing.stable.service.BankAccountService;
+
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Matchers.any;
 
 public class BankAccountServiceTest {
 	
@@ -27,6 +31,18 @@ public class BankAccountServiceTest {
 		account = new BankAccount("Teresa Riva", 65.0d);
 		accounts.add(account);
 		service = new BankAccountService();
+	}
+	
+	@Test
+	void saveAllTest() {
+		
+		doAnswer((arguments) -> {
+	        System.out.println("Inside doAnswer block");
+	        assertEquals(accounts, arguments.getArgumentAt(0, List.class));
+	        return null;
+	    }).when(service).saveAll(any(List.class));
+		
+		service.saveAll(accounts);
 	}
 	
 	@Test
